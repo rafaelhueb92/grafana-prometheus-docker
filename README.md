@@ -44,4 +44,4 @@ docker compose restart prometheus
 
 ☀ Grafana Dashboard
 
-![logo](./images/screenshoot.png)
+![logo](./images/screenshoot1.png)
