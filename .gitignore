@@ -1,0 +1,40 @@
+# Docker volumes and data
+docker-volumes/
+prometheus-data/
+grafana-data/
+*.log
+
+# Environment files (if any sensitive data)
+.env
+.env.local
+.env*.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node/Python dependencies (if added later)
+node_modules/
+__pycache__/
+*.pyc
+venv/
+env/
+
+# Temporary files
+*.tmp
+.tmp/
+
+# OS files
+Thumbs.db
+
+# Grafana
+grafana/provisioning/*/secrets*

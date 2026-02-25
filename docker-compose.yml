@@ -1,0 +1,57 @@
+services:
+  python-app:
+    image: rafahueb/flask-beta3:2523123
+    container_name: python-app
+    ports:
+      - "7590:5002" 
+      - "8590:8001"
+    networks:
+      - monitoring
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./provisioning/configs/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+    #restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./provisioning/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - monitoring
+    #restart: unless-stopped
+
+  app-example001:
+    image: prom/node-exporter
+    container_name: app-example001
+    ports:
+      - "9105:9100"
+    networks:
+      - monitoring
+    #restart: unless-stopped
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    container_name: blackbox-exporter
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./provisioning/configs/blackbox/config.yaml:/etc/blackbox_exporter/config.yml:ro
+    command:
+      - "--config.file=/etc/blackbox_exporter/config.yml"
+    networks:
+      - monitoring
+    #restart: unless-stopped
+
+networks:
+  monitoring:
+    driver: bridge

@@ -1,0 +1,76 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 15s
+alerting:
+  alertmanagers:
+  - follow_redirects: true
+    scheme: http
+    timeout: 10s
+    api_version: v2
+    static_configs:
+    - targets: []
+scrape_configs:
+- job_name: node
+  honor_timestamps: true
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  metrics_path: /metrics
+  scheme: http
+  follow_redirects: true
+  static_configs:
+  - targets:
+    - localhost:9090
+    labels:
+      instance: PrometheusServer
+  - targets:
+    - app-example001:9100
+    labels:
+      instance: app-example001
+- job_name: python-app
+  honor_timestamps: true
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - python-app:8001
+    labels:
+      instance: python-app
+- job_name: blackbox
+  honor_timestamps: true
+  params:
+    module:
+    - http_2xx_example
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  metrics_path: /probe
+  scheme: http
+  follow_redirects: true
+  relabel_configs:
+  - source_labels: [__address__]
+    separator: ;
+    regex: (.*)
+    target_label: __param_target
+    replacement: $1
+    action: replace
+  - source_labels: [__param_target]
+    separator: ;
+    regex: (.*)
+    target_label: instance
+    replacement: $1
+    action: replace
+  - separator: ;
+    regex: (.*)
+    target_label: __address__
+    replacement: blackbox-exporter:9115
+    action: replace
+  static_configs:
+  - targets:
+    - http://www.itpanther.com
+    - http://www.google.com
+    - http://youtube.com
+    - http://itpanther.com
+    - http://techbuzzguide.com
+    - http://instagram.com
