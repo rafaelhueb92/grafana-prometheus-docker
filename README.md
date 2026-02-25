@@ -34,22 +34,6 @@ Prometheus configuration
 
 Prometheus reads `prometheus.yml` mounted into the container. Add or adjust `scrape_configs` there to include additional targets (for example the `python-app`).
 
-Screenshots / Prints 🖼️
-
-Add any screenshots or exported images here to keep documentation together.
-
-Project screenshot folder (create if missing):
-
-```
-./screenshots/
-```
-
-You can embed screenshots in this README by adding relative links, for example:
-
-```md
-![App dashboard](./screenshots/app-dashboard.png)
-```
-
 Notes & next steps ⚙️
 
 - To change the metrics path or port for `python-app`, update `prometheus.yml` and restart the Prometheus container:
