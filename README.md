@@ -41,3 +41,7 @@ Notes & next steps ⚙️
 ```bash
 docker compose restart prometheus
 ```
+
+☀ Grafana Dashboard
+
+![logo](./images/screenshoot.png)
